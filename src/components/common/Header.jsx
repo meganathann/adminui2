@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles.css"; // Adjust the import path based on the directory structure
+import "../../styles.css";
 
 const Header = () => {
   return (

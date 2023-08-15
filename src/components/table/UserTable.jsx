@@ -1,6 +1,7 @@
 import React from "react";
 import UserRow from "./UserRow";
 import "../../styles.css";
+
 const UserTable = ({
   userData,
   searchQuery,
@@ -12,6 +13,8 @@ const UserTable = ({
   currentPage,
   usersPerPage,
   onRowClick,
+  onSelectAllUsers, // Add the new prop for selecting all users
+  isAllUsersSelected, // Add the new prop for indicating if all users are selected
 }) => {
   const filteredData = userData.filter(
     (user) =>
@@ -29,7 +32,13 @@ const UserTable = ({
       <table className="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>Select</th>
+            <th>
+              <input
+                type="checkbox"
+                checked={isAllUsersSelected}
+                onChange={onSelectAllUsers}
+              />
+            </th>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
@@ -48,6 +57,7 @@ const UserTable = ({
               onDeleteUser={onDeleteUser}
               onEditUserInfo={onEditUserInfo}
               onRowClick={onRowClick}
+              canDeselect={!selectedUsers.includes(user.id)}
             />
           ))}
         </tbody>

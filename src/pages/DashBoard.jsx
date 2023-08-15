@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import SearchBox from "../components/common/SearchBox";
-import UserTable from "../components/user/UserTable";
+import UserTable from "../components/table/UserTable";
 import ApiService from "../services/ApiService";
 import "../styles.css";
 
@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [isAllUsersSelected, setIsAllUsersSelected] = useState(false);
   const usersPerPage = 10;
 
   useEffect(() => {
@@ -35,6 +36,15 @@ const Dashboard = () => {
     setCurrentPage(page);
   };
 
+  const handleSelectAllUsers = () => {
+    if (isAllUsersSelected) {
+      setSelectedUsers([]);
+    } else {
+      setSelectedUsers(dataPerPage.map((user) => user.id));
+    }
+    setIsAllUsersSelected(!isAllUsersSelected);
+  };
+
   const handleDeleteSelected = () => {
     // Remove selected users from userData
     const updatedData = userData.filter(
@@ -42,14 +52,25 @@ const Dashboard = () => {
     );
     setUserData(updatedData);
 
-    // Clear selectedUsers array
+    // Clear selectedUsers array and uncheck "Select All" checkbox
     setSelectedUsers([]);
+    setIsAllUsersSelected(false);
   };
+
+  // Calculate dataPerPage here
+  const filteredData = userData.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.role.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const firstIndex = (currentPage - 1) * usersPerPage;
+  const lastIndex = firstIndex + usersPerPage;
+  const dataPerPage = filteredData.slice(firstIndex, lastIndex);
 
   return (
     <div className="container">
-      {" "}
-      {/* Apply Bootstrap container class for responsive layout */}
       <Header />
       <SearchBox
         searchQuery={searchQuery}
@@ -79,16 +100,18 @@ const Dashboard = () => {
             )
           );
         }}
-        onPageChange={handlePageChange}
         currentPage={currentPage}
         usersPerPage={usersPerPage}
+        onSelectAllUsers={handleSelectAllUsers}
+        isAllUsersSelected={isAllUsersSelected}
+        dataPerPage={dataPerPage} 
       />
       <button className="btn btn-danger my-3" onClick={handleDeleteSelected}>
         Delete Selected
       </button>
       <Footer
         currentPage={currentPage}
-        totalPage={Math.ceil(userData.length / usersPerPage)}
+        totalPage={Math.ceil(filteredData.length / usersPerPage)}
         onPageChange={handlePageChange}
       />
     </div>

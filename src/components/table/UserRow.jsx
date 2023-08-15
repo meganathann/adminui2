@@ -13,8 +13,10 @@ const UserRow = ({
   isSelected,
   onRowClick,
   onSelectUser,
+  onDeselectUser,
   onDeleteUser,
   onEditUserInfo,
+  canDeselect,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(user.name);
@@ -22,7 +24,11 @@ const UserRow = ({
   const [editedRole, setEditedRole] = useState(user.role);
 
   const handleCheckboxChange = () => {
-    onSelectUser(user.id);
+    if (canDeselect && !isSelected) {
+      onSelectUser(user.id);
+    } else if (isSelected) {
+      onDeselectUser(user.id);
+    }
   };
 
   const handleRowSelection = () => {
