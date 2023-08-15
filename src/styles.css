@@ -1,0 +1,134 @@
+/* style.css */
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+
+/* Header styles */
+.header-container {
+  background-color: #87ceeb; /* Sky blue color */
+  color: #333; /* Dark gray font color */
+}
+
+/* Table styles */
+.table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Selected row style */
+.selected-row {
+  background-color: #e0e0e0;
+}
+
+/* Search box styles */
+.search-box {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Footer styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  margin-top: 20px;
+}
+
+/* Smaller footer icons */
+.pagination .btn-sm {
+  padding: 2px 5px; /* Adjust padding to make icons smaller */
+  font-size: 12px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  margin-top: 20px;
+  padding-bottom: 20px; /* Add bottom padding */
+}
+.page-item {
+  margin: 0 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #c43e3e;
+  background-color: #32cab3;
+}
+
+.page-item.active {
+  background-color: #007bff; /* Blue background color */
+  color: #fff; /* White font color */
+  font-weight: bold;
+}
+/* Button styles */
+.btn {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #bd2130;
+}
+
+/* Container styles */
+.container {
+  padding: 0; /* Remove padding to eliminate top space */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+/* Responsive styles */
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 0; /* Remove padding to eliminate top space */
+  }
+  .table {
+    font-size: 14px;
+  }
+  .btn-sm {
+    padding: 3px 6px;
+    font-size: 12px;
+  }
+
+  /* Reduce font size and padding for footer buttons */
+  .pagination .btn-secondary {
+    font-size: 15px;
+    padding: 3px 8px;
+  }
+}
